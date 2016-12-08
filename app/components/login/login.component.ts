@@ -15,7 +15,7 @@ export class LoginComponent extends BaseComponent {
   constructor(public userDao: UserDao, public router: Router) {
     super();
     if (this.userDao.id() != null) {
-      this.router.navigateByUrl('/home');
+      this.router.navigate(['/home']);
     }
   }
 
@@ -23,8 +23,5 @@ export class LoginComponent extends BaseComponent {
     console.log("doLogin()");
 
     this.userDao.signInWithEmail(this.email, this.password);
-    // if (this.userDao.id() != null) {
-      this.router.navigateByUrl('/home');
-    // }
   }
 }

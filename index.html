@@ -22,6 +22,19 @@
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDGrAlwAsQ1UPLQDZNYD3LXgmniQaNjx8c",
+        authDomain: "pbdemo-3f429.firebaseapp.com",
+        databaseURL: "https://pbdemo-3f429.firebaseio.com",
+        storageBucket: "pbdemo-3f429.appspot.com",
+        messagingSenderId: "1021804409313"
+      };
+      firebase.initializeApp(config);
+    </script>
   </head>
 
   <body>

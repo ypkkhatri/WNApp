@@ -1,29 +1,44 @@
 import {Injectable} from "@angular/core";
-import {AngularFire, AuthProviders, FirebaseAuthState, AuthMethods} from "angularfire2";
-/**
- * Created by yougeshwarkhatri on 08/12/2016.
- */
+import {Router} from "@angular/router";
+import {RoleDao} from "./RoleDao";
+
+declare var firebase: any;
 
 @Injectable()
 export class UserDao {
-  uid: string;
 
-  constructor(public af: AngularFire) {
-    this.af.auth.subscribe(auth => this.uid = auth ? auth.uid : null);
+  constructor(public router: Router, public roleDao: RoleDao) {
+  }
+
+  isLoggedIn() : boolean {
+    return this.id() != null;
   }
 
   id(): string {
-    return this.uid;
+    let user = firebase.auth().currentUser;
+    if(user == null) return null;
+    return user.uid;
+  }
+
+  signupUser(email: string, password: string) {
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error: any){
+      console.log(error);
+    });
   }
 
   signInWithEmail(email: string, password: string): void {
-    this.af.auth.login({email:email, password:password}, {provider: AuthProviders.Password,method: AuthMethods.Password})
-      .catch(error => console.log('ERROR @ UserDao#signIn() :', error));
-    this.af.auth.subscribe(auth => this.uid = auth ? auth.uid : null);
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error: any) {
+      console.log(error);
+    });
+    if(this.isLoggedIn()) {
+      this.roleDao.loadUserRoleById(this.id());
+      this.router.navigate(['/home']);
+    }
   }
 
   signOut(): void {
-    this.af.auth.logout();
-    this.uid = null;
+    firebase.auth().signOut();
+    this.roleDao.unloadRole();
+    this.router.navigate(['login']);
   }
 }

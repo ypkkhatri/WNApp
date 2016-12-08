@@ -1,36 +1,40 @@
 import {Injectable} from "@angular/core";
-import {
-  AngularFire, AuthProviders, FirebaseAuthState, AuthMethods, FirebaseDatabase,
-  FirebaseObjectObservable
-} from "angularfire2";
 import {UserDao} from "./UserDao";
-/**
- * Created by yougeshwarkhatri on 08/12/2016.
- */
+
+declare var firebase: any;
 
 @Injectable()
 export class RoleDao {
 
-  constructor(public af: AngularFire, public userDao: UserDao) {
+  private role: string;
+
+  constructor(public userDao: UserDao) {
     this.init();
   }
 
   init(): void {
-    if (this.userDao.id() != null) {
-      let obj = this.af.database.object('/roles/Z9tlmo1fs0cBIGBY02WW4P4IYTC2/');
-      obj.set({
-        name: 'admin'
+    if (this.userDao.isLoggedIn()) {
+      firebase.database().ref('/roles/Z9tlmo1fs0cBIGBY02WW4P4IYTC2/').set({
+        name: "admin"
       });
-      obj = this.af.database.object('/roles/z3QCR9v3bDe7auIrlhV8GqymaH73/');
-      obj.set({
-        name: 'user'
+      firebase.database().ref('/roles/z3QCR9v3bDe7auIrlhV8GqymaH73/').set({
+        name: "user"
       });
     }
   }
 
-  getUserRoleById(id: string): any {
-    let obj: FirebaseObjectObservable<any> = this.af.database.object('/roles/' + id + '/');
-    return obj.name;
+  public loadUserRoleById(id: string): void {
+    firebase.database().ref('roles/' + id + '/name').on('value', (snapshot: any) => {
+      this.role = snapshot.val();
+    });
+  }
+
+  unloadRole() {
+    this.role = null;
+  }
+
+  getRole(): string {
+    return this.role;
   }
 
 }
