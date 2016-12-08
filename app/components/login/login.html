@@ -1,11 +1,11 @@
 <p-dialog header="Login" visible="true" modal="true" draggable="false" closable="false" resizable="false">
   <p-messages [value]="msgs"></p-messages>
 
-  <h3 class="first">Username</h3>
-  <input id="username" type="text" size="30" pInputText [(ngModel)]="username" />
+  <h3 class="first">Email</h3>
+  <input id="username" type="text" size="30" pInputText [(ngModel)]="email" />
 
   <h3 class="first">Password</h3>
-  <input id="password" type="password" size="30" pPassword [(ngModel)]="username" />
+  <input id="password" type="password" size="30" pPassword [(ngModel)]="password" />
 
   <button pButton type="button" label="Login" (click)="doLogin()"></button>
 </p-dialog>
