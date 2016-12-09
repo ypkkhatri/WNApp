@@ -1,0 +1,6 @@
+label,
+input[type='text'],
+input[type='password'] {
+  margin-bottom: 10px;
+}
+

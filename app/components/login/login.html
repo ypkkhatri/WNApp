@@ -1,11 +1,24 @@
-<p-dialog header="Login" visible="true" modal="true" draggable="false" closable="false" resizable="false">
+<!--<p-dialog header="Login" visible="true" modal="true" draggable="false" closable="false" resizable="false">-->
+  <!--<p-messages [value]="msgs"></p-messages>-->
+
+  <!--<h3 class="first">Email</h3>-->
+  <!--<input id="username" type="text" size="30" pInputText [(ngModel)]="email" />-->
+
+  <!--<h3 class="first">Password</h3>-->
+  <!--<input id="password" type="password" size="30" pPassword [(ngModel)]="password" />-->
+
+  <!--<button pButton type="button" label="Login" (click)="doLogin()"></button>-->
+<!--</p-dialog>-->
+
+<p-panel [style]="{width:'290px', margin: '0 auto'}">
+  <header>Login</header>
   <p-messages [value]="msgs"></p-messages>
 
-  <h3 class="first">Email</h3>
-  <input id="username" type="text" size="30" pInputText [(ngModel)]="email" />
+  <label for="username" class="margin-btm5">Email</label>
+  <input id="username" type="text" size="30" pInputText [(ngModel)]="email" class="margin-btm5"/>
 
-  <h3 class="first">Password</h3>
-  <input id="password" type="password" size="30" pPassword [(ngModel)]="password" />
+  <label for="password">Password</label>
+  <input id="password" type="password" size="30" pPassword [(ngModel)]="password" class="margin-btm5"/>
 
   <button pButton type="button" label="Login" (click)="doLogin()"></button>
-</p-dialog>
+</p-panel>

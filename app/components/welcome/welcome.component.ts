@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {BaseComponent} from "../base.component";
-import {UserDao} from "../../dao/UserDao";
-import {RoleDao} from "../../dao/RoleDao";
 import {MenuItem} from "primeng/components/common/api";
 import {Router} from "@angular/router";
+import {SessionService} from "../../services/session.service";
+import {FirebaseService} from "../../services/firebase.service";
 
 @Component({
   selector: 'welcome',
@@ -14,24 +14,30 @@ export class WelcomeComponent extends BaseComponent {
 
   private items: MenuItem[];
 
-  constructor(public userDao: UserDao, public roleDao: RoleDao, public router: Router) {
+  constructor(public firebaseService: FirebaseService, private session: SessionService, public router: Router) {
     super();
 
-    if(!userDao.isLoggedIn()) {
-      this.router.navigateByUrl('/login');
+    if(!session.isLoggedIn()) {
+      this.router.navigate(['login']);
     }
 
-    this.role = roleDao.getRole();
-
+    this.role = session.getRole();
 
     this.items = [
       {
         label: 'File',
         items: [
           {
+            label: 'Component1',
+            command: () => this.router.navigate(['component1'])
+          },
+          {
+            label: 'Component2',
+            command: () => this.router.navigate(['component2'])
+          },
+          {
             label: 'Logout',
             command: () => this.doLogout()
-
           }
         ]
       }
@@ -41,7 +47,6 @@ export class WelcomeComponent extends BaseComponent {
   doLogout() {
     console.log("doLogout()");
 
-    this.userDao.signOut();
-
+    this.firebaseService.signOut();
   }
 }

@@ -1,9 +1,11 @@
 import {Routes, RouterModule} from "@angular/router";
 import {WelcomeComponent} from "./components/welcome/welcome.component";
 import {LoginComponent} from "./components/login/login.component";
-/**
- * Created by yougeshwarkhatri on 08/12/2016.
- */
+import {Component1} from "./components/component1";
+import {Component2} from "./components/component2";
+import {p404Component} from "./components/p404.component";
+import {AdminGuard} from "./gaurds/admin.guard";
+import {UserGuard} from "./gaurds/user.guard";
 
 const routes: Routes = [
   {
@@ -18,6 +20,20 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'component1',
+    component: Component1,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'component2',
+    component: Component2,
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'p404',
+    component: p404Component
   }
 ];
 
