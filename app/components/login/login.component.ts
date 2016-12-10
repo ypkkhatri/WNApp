@@ -26,10 +26,20 @@ export class LoginComponent extends BaseComponent {
   doLogin() {
     console.log("doLogin()");
 
-    this.firebaseService.signInWithEmail(this.email, this.password);
-    if(!this.session.isLoggedIn()) {
+    this.msgs = [];
+    this.msgs.push({severity:'info', summary:'', detail:'Please wait...'});
+
+    this.firebaseService.signInWithEmail(this.email, this.password).then((data: any) => {
+      this.firebaseService.loadUser();
       this.msgs = [];
-      this.msgs.push({severity:'error', summary:'', detail:'Invalid username or password'});
-    }
+      if (this.session.isLoggedIn()) {
+        this.router.navigate(['/home']);
+        this.msgs.push({severity:'success', summary:'', detail:'Logged In successfully'});
+      }
+    }).catch((error: any) => {
+      this.msgs = [];
+      console.log(error);
+      this.msgs.push({severity:'error', summary:'', detail:error.message});
+    });
   }
 }

@@ -28,23 +28,18 @@ export class FirebaseService {
     });
   }
 
-  signInWithEmail(email: string, password: string): void {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error: any) {
-      console.log(error);
-    });
-    this.loadUser();
-    if (this.session.isLoggedIn()) {
-      this.router.navigate(['/home']);
-    }
+  signInWithEmail(email: string, password: string): any {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
   }
 
   signOut(): void {
-    firebase.auth().signOut();
-    this.session.clear();
-    this.router.navigate(['login']);
+    firebase.auth().signOut().then(() => {
+      this.session.clear();
+      this.router.navigate(['login']);
+    });
   }
 
-  private loadUser(): void {
+  loadUser(): void {
     let user = firebase.auth().currentUser;
     this.session.setUser(user);
 

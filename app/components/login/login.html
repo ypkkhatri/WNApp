@@ -10,9 +10,9 @@
   <!--<button pButton type="button" label="Login" (click)="doLogin()"></button>-->
 <!--</p-dialog>-->
 
-<p-panel [style]="{width:'290px', margin: '0 auto'}">
+<p-panel [style]="{width:'315px', margin: '0 auto'}">
   <header>Login</header>
-  <p-messages [value]="msgs"></p-messages>
+  <p-messages [value]="msgs" [closable]="false"></p-messages>
 
   <label for="username" class="margin-btm5">Email</label>
   <input id="username" type="text" size="30" pInputText [(ngModel)]="email" class="margin-btm5"/>
