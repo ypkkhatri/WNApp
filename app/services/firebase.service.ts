@@ -9,18 +9,6 @@ declare var firebase:any;
 export class FirebaseService {
 
   constructor(private session:SessionService, private router:Router) {
-    // this.init();
-  }
-
-  init():void {
-    if (this.session.isLoggedIn()) {
-      firebase.database().ref('/roles/Z9tlmo1fs0cBIGBY02WW4P4IYTC2/').set({
-        name: "admin"
-      });
-      firebase.database().ref('/roles/z3QCR9v3bDe7auIrlhV8GqymaH73/').set({
-        name: "user"
-      });
-    }
   }
 
   signupUser(email:string, password:string): any {
@@ -64,14 +52,18 @@ export class FirebaseService {
     return firebase.database().ref("users/" + user.uid).remove();
   }
 
-  getUsers() {
-    return firebase.database().ref('/users/').once('value').then((snapshot: any) => {
+  getUser(id: string): any {
+    return firebase.database().ref('users/' + id).once('value').then((snapshot: any) => {
       let data = snapshot.val();
-      console.log(data);
+      data.uid = id;
       return data;
     });
-    // let data = firebase.database().ref('users/');
-    // console.log(data);
-    // return data;
+  }
+
+  getUsers(): any {
+    return firebase.database().ref('users/').once('value').then((snapshot: any) => {
+      let data = snapshot.val();
+      return data;
+    });
   }
 }

@@ -30,12 +30,15 @@ export class LoginComponent extends BaseComponent {
     this.msgs.push({severity:'info', summary:'', detail:'Please wait...'});
 
     this.firebaseService.signInWithEmail(this.email, this.password).then((data: any) => {
-      this.firebaseService.loadUser();
-      this.msgs = [];
-      if (this.session.isLoggedIn()) {
-        this.router.navigateByUrl('/dashboard');
-        this.msgs.push({severity:'success', summary:'', detail:'Logged In successfully'});
-      }
+      this.firebaseService.getUser(data.uid).then((user: any) => {
+        this.session.setUser(user);
+        this.msgs = [];
+        if (this.session.isLoggedIn()) {
+          this.router.navigateByUrl('/dashboard');
+          this.msgs.push({severity:'success', summary:'', detail:'Logged In successfully'});
+        }
+      });
+      // this.firebaseService.loadUser();
     }).catch((error: any) => {
       this.msgs = [];
       console.log(error);
