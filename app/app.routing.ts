@@ -28,8 +28,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [AdminGuard]
+        component: DashboardComponent
       },
       {
         path: 'user',

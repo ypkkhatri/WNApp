@@ -19,6 +19,10 @@ export class LayoutComponent extends BaseComponent {
         label: 'File',
         items: [
           {
+            label: 'Dashboard',
+            command: () => this.router.navigate(['dashboard'])
+          },
+          {
             label: 'User',
             command: () => this.router.navigate(['user'])
           },
