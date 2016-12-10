@@ -19,7 +19,7 @@ export class LoginComponent extends BaseComponent {
   constructor(public firebaseService: FirebaseService, private session: SessionService, public router: Router) {
     super();
     if (this.session.isLoggedIn()) {
-      this.router.navigate(['/home']);
+      this.router.navigateByUrl('/dashboard');
     }
   }
 
@@ -33,7 +33,7 @@ export class LoginComponent extends BaseComponent {
       this.firebaseService.loadUser();
       this.msgs = [];
       if (this.session.isLoggedIn()) {
-        this.router.navigate(['/home']);
+        this.router.navigateByUrl('/dashboard');
         this.msgs.push({severity:'success', summary:'', detail:'Logged In successfully'});
       }
     }).catch((error: any) => {

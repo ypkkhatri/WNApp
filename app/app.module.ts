@@ -6,7 +6,7 @@ import {InputTextModule, ButtonModule, DialogModule, PasswordModule, MessagesMod
 import {LoginComponent} from "./components/login/login.component";
 import {FormsModule} from "@angular/forms";
 import {AppRoutes} from "./app.routing";
-import {WelcomeComponent} from "./components/welcome/welcome.component";
+import {DashboardComponent} from "components/dashboard/dashboard.component.ts";
 import {MenubarModule} from "primeng/components/menubar/menubar";
 import {Component1} from "./components/component1";
 import {Component2} from "./components/component2";
@@ -16,6 +16,7 @@ import {SessionService} from "./services/session.service";
 import {AdminGuard} from "./gaurds/admin.guard";
 import {UserGuard} from "./gaurds/user.guard";
 import {PanelModule} from "primeng/components/panel/panel";
+import {UserComponent} from "./components/user/user.component";
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import {PanelModule} from "primeng/components/panel/panel";
     AppRoutes
   ],
   providers: [FirebaseService, SessionService, AdminGuard, UserGuard],
-  declarations: [AppComponent, LoginComponent, WelcomeComponent, Component1, Component2, p404Component],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, UserComponent, Component1, Component2, p404Component],
   bootstrap: [AppComponent]
 })
 export class AppModule {
