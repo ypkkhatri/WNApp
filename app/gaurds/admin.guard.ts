@@ -8,7 +8,7 @@ export class AdminGuard implements CanActivate {
   constructor(private session: SessionService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if(this.session.getRole() === 'admin') {
+    if(this.session.getUser().role === 'admin') {
       return true;
     }
     this.router.navigate(['p404']);

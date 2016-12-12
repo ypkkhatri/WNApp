@@ -9,6 +9,21 @@ declare var firebase:any;
 export class FirebaseService {
 
   constructor(private session:SessionService, private router:Router) {
+    //firebase.database.enableLogging(true);
+    this.setup();
+  }
+
+  setup() {
+    let username = 'wn@gmail.com';
+    let password = '123456';
+    this.signInWithEmail(username, password).then((data: any) => {
+      this.signOut();
+    }).catch((error:any) => {
+      this.addUser({email: username, password: password, role: 'admin', uid: null}).catch((error:any) => {
+        console.log(error);
+      });
+      //console.log(error);
+    });
   }
 
   signupUser(email:string, password:string): any {
@@ -24,17 +39,6 @@ export class FirebaseService {
       this.session.clear();
       this.router.navigate(['login']);
     });
-  }
-
-  loadUser():void {
-    let user = firebase.auth().currentUser;
-    this.session.setUser(user);
-
-    if (this.session.isLoggedIn()) {
-      firebase.database().ref('roles/' + this.session.getUserId() + '/name').on('value', (snapshot:any) => {
-        this.session.setRole(snapshot.val());
-      });
-    }
   }
 
   addUser(user:User): any {

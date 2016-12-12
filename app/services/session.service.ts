@@ -25,14 +25,6 @@ export class SessionService {
     return this.getUser().uid;
   }
 
-  setRole(value: string): void {
-    sessionStorage.setItem('role', value);
-  }
-
-  getRole(): string {
-    return sessionStorage.getItem('role');
-  }
-
   setValue(key: string, value: string): void {
     sessionStorage.setItem(key, value);
   }

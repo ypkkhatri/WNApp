@@ -36,7 +36,6 @@ export class UserComponent extends BaseComponent implements OnInit {
     this.firebaseService.getUsers().then((data: any) => {
       for(let key in data) {
         this.users.push({uid: key, email: data[key].email, password: '', role: data[key].role});
-        console.log(key);
       }
       this.msgs = [];
       // console.log(data);
@@ -44,6 +43,16 @@ export class UserComponent extends BaseComponent implements OnInit {
   }
 
   save() {
+    this.msgs = [];
+
+    if(this.selectedUser.email == null || this.selectedUser.email == '' ||
+      this.selectedUser.password == null || this.selectedUser.password == ''||
+      this.selectedUser.role == null || this.selectedUser.role == ''
+    ) {
+      this.msgs.push({severity:'error', summary:'', detail:'Fill all the fields'});
+      return;
+    }
+
     this.msgs = [];
     this.msgs.push({severity:'info', summary:'', detail:'Please wait...'});
     if(this.newUser) {

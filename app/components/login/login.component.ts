@@ -11,8 +11,8 @@ import {Message} from "primeng/components/common/api";
   styleUrls: ['../../../app/components/login/login.css']
 })
 export class LoginComponent extends BaseComponent {
-  email: string = 'user1@gmail.com';
-  password: string = '123456';
+  email: string = '';
+  password: string = '';
 
   msgs: Message[] = [];
 
